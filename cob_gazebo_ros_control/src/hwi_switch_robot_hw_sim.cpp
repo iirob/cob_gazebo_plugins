@@ -107,7 +107,6 @@ bool HWISwitchRobotHWSim::initSim(
         << " interface only supports one.");
       continue;
     }
-
     std::vector<std::string> joint_interfaces = transmissions[j].joints_[0].hardware_interfaces_;
     if (joint_interfaces.empty() &&
         !(transmissions[j].actuators_.empty()) &&
@@ -133,7 +132,6 @@ bool HWISwitchRobotHWSim::initSim(
         " of transmission " << transmissions[j].name_ << " specifies multiple hardware interfaces. " <<
         "This feature is now available.");
     }
-
     if(enable_joint_filtering_)
     {
       if(enabled_joints_.find(transmissions[j].joints_[0].name_)!=enabled_joints_.end())
@@ -193,7 +191,6 @@ bool HWISwitchRobotHWSim::initSim(
         supporting_joints.insert(joint_names_[index]);
         map_hwinterface_to_joints_.insert( std::pair< std::string, std::set<std::string> >(hw_interface_type, supporting_joints) );
       }
-
       if(joint_interfaces[i] == "EffortJointInterface")
       {
         // Create effort joint interface
@@ -242,6 +239,13 @@ bool HWISwitchRobotHWSim::initSim(
                         &joint_types_[index], &joint_lower_limits_[index], &joint_upper_limits_[index],
                         &joint_effort_limits_[index]);
       }
+      else if(joint_interfaces[i] == "ForceTorqueSensorInterface")
+      {
+        std::string fts_name = "ATI_45_Mini";
+        std::string fts_transform_frame= "fts_transform_frame";
+        fts_handle = new ForceTorqueSensorHandleSim(model_nh, fts_name, fts_transform_frame);        
+        fts_interface_.registerHandle(*fts_handle);
+      }
       else
       {
         ROS_FATAL_STREAM_NAMED("hwi_switch_robot_hw_sim","No matching hardware interface found for '"
@@ -281,6 +285,7 @@ bool HWISwitchRobotHWSim::initSim(
   registerInterface(&ej_interface_);
   registerInterface(&pj_interface_);
   registerInterface(&vj_interface_);
+  registerInterface(&fts_interface_);
 
   // Initialize the emergency stop code.
   state_valid_ = true;

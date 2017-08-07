@@ -3,12 +3,12 @@ project(cob_gazebo_ros_control)
 
 add_definitions(-std=c++11)
 
-find_package(catkin REQUIRED COMPONENTS controller_manager gazebo_ros_control gazebo_ros hardware_interface joint_limits_interface pluginlib roscpp transmission_interface urdf)
+find_package(catkin REQUIRED COMPONENTS ati_force_torque gazebo_ros_control gazebo_ros hardware_interface joint_limits_interface pluginlib roscpp transmission_interface urdf)
 
 find_package(gazebo REQUIRED)
 
 catkin_package(
-  CATKIN_DEPENDS controller_manager gazebo_ros_control gazebo_ros hardware_interface joint_limits_interface pluginlib roscpp transmission_interface urdf
+  CATKIN_DEPENDS controller_manager gazebo_ros_control gazebo_ros hardware_interface joint_limits_interface pluginlib roscpp transmission_interface urdf ati_force_torque
   DEPENDS gazebo
   INCLUDE_DIRS include
   LIBRARIES hwi_switch_gazebo_ros_control hwi_switch_robot_hw_sim

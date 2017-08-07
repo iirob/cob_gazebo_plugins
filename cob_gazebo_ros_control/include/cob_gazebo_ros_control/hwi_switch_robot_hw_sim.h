@@ -45,7 +45,7 @@
 
 // cob_gazebo_ros_control
 #include <gazebo_ros_control/default_robot_hw_sim.h>
-
+#include <ati_force_torque/force_torque_sensor_handle_sim.h>
 
 namespace cob_gazebo_ros_control
 {
@@ -69,6 +69,9 @@ public:
   virtual void stateValid(const bool active);
 
 protected:
+
+  hardware_interface::ForceTorqueSensorInterface fts_interface_;
+  ForceTorqueSensorHandleSim* fts_handle;
 
   bool enable_joint_filtering_;
   std::set< std::string > enabled_joints_;

@@ -26,6 +26,8 @@
   <depend>roscpp</depend>
   <depend>transmission_interface</depend>
   <depend>urdf</depend>
+  <depend>ati_force_torque</depend>
+  
 
   <export>
     <gazebo_ros_control plugin="${prefix}/cob_gazebo_ros_control_plugins.xml"/>
